@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/tiers.css">
     <link rel="stylesheet" href="css/final.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <script src="js/hero-fadein.js" defer></script>
     <script src="js/slider-mask.js" defer></script>
     <script src="js/bio-flipcard.js" defer></script>
@@ -23,69 +24,69 @@
 <body style="background: url('WEB_ELEMENTS/beautiful-sky-with-clouds.jpg') center/cover no-repeat fixed; min-height: 100vh;">
     <main>
         <!-- Hero Section (Section 1) -->
-        <section class="hero-section" aria-label="Meet Your Instructor">
-            <img src="WEB_ELEMENTS/SECTIONS/Hero/background.webp" alt="Sky background" class="hero-section__layer hero-section__layer--bg" loading="eager" />
-            <img src="WEB_ELEMENTS/SECTIONS/Hero/MeetYourInstructor.webp" alt="Meet Your Instructor overlay" class="hero-section__layer hero-section__layer--meet" loading="lazy" />
-            <img src="WEB_ELEMENTS/SECTIONS/Hero/akaMandy.webp" alt="Aka Mandy overlay" class="hero-section__layer hero-section__layer--aka" loading="lazy" />
+        <section class="hero-section section-container" aria-label="Meet Your Instructor">
+            <img src="WEB_ELEMENTS/SECTIONS/Hero/background.webp" alt="Sky background" class="hero-section__layer hero-section__layer--bg" loading="eager" data-aspect-ratio="16/9" />
+            <img src="WEB_ELEMENTS/SECTIONS/Hero/MeetYourInstructor.webp" alt="Meet Your Instructor overlay" class="hero-section__layer hero-section__layer--meet" loading="lazy" data-aspect-ratio="16/9" />
+            <img src="WEB_ELEMENTS/SECTIONS/Hero/akaMandy.webp" alt="Aka Mandy overlay" class="hero-section__layer hero-section__layer--aka" loading="lazy" data-aspect-ratio="16/9" />
         </section>
         <!-- HeroPic Section (Section 2) -->
-        <section class="heropic-section" aria-label="Mandy Dual Image Comparison">
-            <img src="WEB_ELEMENTS/SECTIONS/HeroPic/wave.webp" alt="Mandy surfing" class="heropic-section__img" loading="lazy" />
-            <img src="WEB_ELEMENTS/SECTIONS/HeroPic/moto.webp" alt="Mandy on motorcycle" class="heropic-section__img heropic-section__img--top" loading="lazy" />
+        <section class="heropic-section section-container" aria-label="Mandy Dual Image Comparison">
+            <img src="WEB_ELEMENTS/SECTIONS/HeroPic/wave.webp" alt="Mandy surfing" class="heropic-section__img" loading="lazy" data-aspect-ratio="16/9" />
+            <img src="WEB_ELEMENTS/SECTIONS/HeroPic/moto.webp" alt="Mandy on motorcycle" class="heropic-section__img heropic-section__img--top" loading="lazy" data-aspect-ratio="16/9" />
             <!-- Slider handle removed: now fully invisible and controlled by cursor hover -->
         </section>
         <!-- HeroBio Section (Section 3) -->
-        <section class="herobio-section" aria-label="Interactive Biography">
+        <section class="herobio-section section-container" aria-label="Interactive Biography">
             <div class="herobio-flipcard">
                 <div class="herobio-flipcard__face herobio-flipcard__face--front">
-                    <img src="WEB_ELEMENTS/SECTIONS/HeroBio/HEROBIOeng.webp" alt="Mandy's biography in English" class="herobio-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/HeroBio/HEROBIOeng.webp" alt="Mandy's biography in English" class="herobio-flipcard__img" loading="lazy" data-aspect-ratio="3/4" />
                 </div>
                 <div class="herobio-flipcard__face herobio-flipcard__face--back">
-                    <img src="WEB_ELEMENTS/SECTIONS/HeroBio/HEROBIOesp.webp" alt="Biografía de Mandy en español" class="herobio-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/HeroBio/HEROBIOesp.webp" alt="Biografía de Mandy en español" class="herobio-flipcard__img" loading="lazy" data-aspect-ratio="3/4" />
                 </div>
                 <!-- Hint removed for clean panel -->
             </div>
         </section>
         <!-- Passport Section (Section 4) -->
-        <section class="passport-section" aria-label="Passport and Stamp Animation">
-            <img src="WEB_ELEMENTS/SECTIONS/Passport/desk.webp" alt="Desk with passport" class="passport-section__desk" loading="lazy" />
-            <img src="WEB_ELEMENTS/SECTIONS/Passport/seal.webp" alt="Animated passport seal" class="passport-section__seal" loading="lazy" />
+        <section class="passport-section section-container" aria-label="Passport and Stamp Animation">
+            <img src="WEB_ELEMENTS/SECTIONS/Passport/desk.webp" alt="Desk with passport" class="passport-section__desk" loading="lazy" data-aspect-ratio="16/9" />
+            <img src="WEB_ELEMENTS/SECTIONS/Passport/seal.webp" alt="Animated passport seal" class="passport-section__seal" loading="lazy" data-aspect-ratio="1/1" />
         </section>
         <!-- Why Spanish? Section (Section 5) -->
-        <section class="whyspanish-section" aria-label="Why Spanish? Flipcard">
+        <section class="whyspanish-section section-container" aria-label="Why Spanish? Flipcard">
             <div class="whyspanish-flipcard">
                 <div class="whyspanish-flipcard__face whyspanish-flipcard__face--front">
-                    <img src="WEB_ELEMENTS/SECTIONS/WhySpanish/WhySpa.webp" alt="Why Spanish? (English)" class="whyspanish-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/WhySpanish/WhySpa.webp" alt="Why Spanish? (English)" class="whyspanish-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
                 </div>
                 <div class="whyspanish-flipcard__face whyspanish-flipcard__face--back">
-                    <img src="WEB_ELEMENTS/SECTIONS/WhySpanish/PorqueEsp.webp" alt="¿Por qué español? (Español)" class="whyspanish-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/WhySpanish/PorqueEsp.webp" alt="¿Por qué español? (Español)" class="whyspanish-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
                 </div>
             </div>
         </section>
         <!-- Mapa Section (Section 6) -->
-        <section class="mapa-section" aria-label="Travel Map">
-            <img src="WEB_ELEMENTS/SECTIONS/Mapa/MAPA.webp" alt="Travel map with routes" class="mapa-section__img" loading="lazy" />
+        <section class="mapa-section section-container" aria-label="Travel Map">
+            <img src="WEB_ELEMENTS/SECTIONS/Mapa/MAPA.webp" alt="Travel map with routes" class="mapa-section__img" loading="lazy" data-aspect-ratio="16/9" />
         </section>
         <!-- Tiers Section (Section 7) -->
-        <section class="tiers-section" aria-label="Program Tiers Carousel" tabindex="0">
+        <section class="tiers-section section-container" aria-label="Program Tiers Carousel" tabindex="0">
             <div class="tiers-carousel">
-                <img src="WEB_ELEMENTS/SECTIONS/Tiers/BaginnersPack.webp" alt="Beginners Pack tier" class="tiers-carousel__item" loading="lazy" />
-                <img src="WEB_ELEMENTS/SECTIONS/Tiers/TravelTier.webp" alt="Travel Tier" class="tiers-carousel__item" loading="lazy" />
-                <img src="WEB_ELEMENTS/SECTIONS/Tiers/FullProgram.webp" alt="Full Program tier" class="tiers-carousel__item" loading="lazy" />
-                <img src="WEB_ELEMENTS/SECTIONS/Tiers/cursor.webp" alt="Decorative floating cursor" class="tiers-carousel__cursor" aria-hidden="true" />
+                <img src="WEB_ELEMENTS/SECTIONS/Tiers/BaginnersPack.webp" alt="Beginners Pack tier" class="tiers-carousel__item" loading="lazy" data-aspect-ratio="4/3" />
+                <img src="WEB_ELEMENTS/SECTIONS/Tiers/TravelTier.webp" alt="Travel Tier" class="tiers-carousel__item" loading="lazy" data-aspect-ratio="4/3" />
+                <img src="WEB_ELEMENTS/SECTIONS/Tiers/FullProgram.webp" alt="Full Program tier" class="tiers-carousel__item" loading="lazy" data-aspect-ratio="4/3" />
+                <img src="WEB_ELEMENTS/SECTIONS/Tiers/cursor.webp" alt="Decorative floating cursor" class="tiers-carousel__cursor" aria-hidden="true" data-aspect-ratio="1/1" />
             </div>
         </section>
         <!-- Final / Greetings Section (Section 8) -->
-        <section class="final-section" aria-label="Final Greetings and Legal" tabindex="0">
+        <section class="final-section section-container" aria-label="Final Greetings and Legal" tabindex="0">
             <div class="final-flipcard">
                 <div class="final-flipcard__face final-flipcard__face--front">
-                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/Comencemos.webp" alt="Welcome message" class="final-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/Comencemos.webp" alt="Welcome message" class="final-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
                 </div>
                 <div class="final-flipcard__face final-flipcard__face--back">
-                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/PrivacyPolicy.webp" alt="Privacy Policy (English)" class="final-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/PrivacyPolicy.webp" alt="Privacy Policy (English)" class="final-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
                 </div>
                 <div class="final-flipcard__face final-flipcard__face--third">
-                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/PoliticaPrivacidad.webp" alt="Política de Privacidad (Español)" class="final-flipcard__img" loading="lazy" />
+                    <img src="WEB_ELEMENTS/SECTIONS/FINAL/PoliticaPrivacidad.webp" alt="Política de Privacidad (Español)" class="final-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
                 </div>
             </div>
         </section>

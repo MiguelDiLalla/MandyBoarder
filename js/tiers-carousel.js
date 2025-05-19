@@ -44,5 +44,21 @@
         if (e.key === 'ArrowRight') goRight();
     });
     section.setAttribute('tabindex', '0');
+
+    // Touch swipe support for carousel (mobile)
+    let touchStartX = 0;
+    section.addEventListener('touchstart', e => {
+        if (e.touches && e.touches.length > 0) {
+            touchStartX = e.touches[0].clientX;
+        }
+    });
+    section.addEventListener('touchend', e => {
+        if (e.changedTouches && e.changedTouches.length > 0) {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (dx > 40) goLeft();
+            if (dx < -40) goRight();
+        }
+    });
+
     updateCarousel();
 })();

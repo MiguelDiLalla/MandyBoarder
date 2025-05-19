@@ -17,11 +17,22 @@
     section.addEventListener('mousemove', e => {
         setSlider(e.clientX);
     });
-    // Touch move: update mask on touch
-    section.addEventListener('touchmove', e => {
+    // Touch move: update mask on touch (improved for mobile drag)
+    let isTouching = false;
+    section.addEventListener('touchstart', e => {
+        isTouching = true;
         if (e.touches && e.touches.length > 0) {
             setSlider(e.touches[0].clientX);
         }
+    });
+    section.addEventListener('touchmove', e => {
+        if (!isTouching) return;
+        if (e.touches && e.touches.length > 0) {
+            setSlider(e.touches[0].clientX);
+        }
+    });
+    section.addEventListener('touchend', () => {
+        isTouching = false;
     });
     // On load: start at 50%
     window.addEventListener('DOMContentLoaded', () => {
