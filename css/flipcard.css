@@ -1,0 +1,117 @@
+/* flipcard.css — Styles for HeroBio (Section 3)
+   BEM-like, responsive, 3D horizontal flip, minimal/clean */
+
+.herobio-section {
+    position: relative;
+    width: 100vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    margin: 2rem auto;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* No border, no box-shadow */
+}
+
+.herobio-flipcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.herobio-flipcard--flipped {
+    transform: rotateY(180deg);
+}
+
+.herobio-flipcard__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.herobio-flipcard__face--back {
+    transform: rotateY(180deg);
+}
+
+.herobio-flipcard__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* No border-radius, no box-shadow */
+    border: none;
+    box-shadow: none;
+}
+
+/* Remove hint styles */
+.herobio-flipcard__hint {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .herobio-section {
+        max-width: 98vw;
+    }
+}
+
+/* Why Spanish? (Section 5) flipcard styles */
+.whyspanish-section {
+    position: relative;
+    width: 100vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    margin: 2rem auto;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+}
+
+.whyspanish-flipcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.whyspanish-flipcard--flipped {
+    transform: rotateY(180deg);
+}
+
+.whyspanish-flipcard__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whyspanish-flipcard__face--back {
+    transform: rotateY(180deg);
+}
+
+.whyspanish-flipcard__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    box-shadow: none;
+}
+
+@media (max-width: 600px) {
+    .whyspanish-section {
+        max-width: 98vw;
+    }
+}

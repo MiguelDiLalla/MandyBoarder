@@ -1,0 +1,84 @@
+/* tiers.css — Styles for Tiers section (Section 7)
+   BEM-like, responsive, 3D carousel effect, minimal/clean */
+
+.tiers-section {
+    position: relative;
+    width: 100vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    background: transparent;
+}
+
+.tiers-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+}
+
+.tiers-carousel__item {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transform: scale(0.8) translateX(0) rotateY(0deg);
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.5s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.tiers-carousel__item--active {
+    opacity: 1;
+    transform: scale(1) translateX(0) rotateY(0deg);
+    z-index: 3;
+    pointer-events: auto;
+}
+
+.tiers-carousel__item--left {
+    opacity: 0.7;
+    transform: scale(0.85) translateX(-60%) rotateY(18deg);
+    z-index: 2;
+}
+
+.tiers-carousel__item--right {
+    opacity: 0.7;
+    transform: scale(0.85) translateX(60%) rotateY(-18deg);
+    z-index: 2;
+}
+
+.tiers-carousel__cursor {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    transform: translateX(-50%) translateY(-50%) scale(1.1);
+    pointer-events: none;
+    z-index: 20;
+    animation: floatCursor 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes floatCursor {
+    0% { transform: translateX(-50%) translateY(-50%) scale(1.1); }
+    100% { transform: translateX(-50%) translateY(-60%) scale(1.15); }
+}
+
+@media (max-width: 600px) {
+    .tiers-section {
+        max-width: 98vw;
+    }
+    .tiers-carousel__cursor {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,62 @@
+/* passport.css — Styles for Passport section (Section 4)
+   BEM-like, responsive, animated stamp drop, perfectly aligned seal */
+
+.passport-section {
+    position: relative;
+    width: 100vw;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.passport-section__desk,
+.passport-section__seal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+}
+
+.passport-section__seal {
+    z-index: 2;
+    /* Start above, animate to 0,0 */
+    opacity: 0;
+    transform: translateY(-40%) scale(0.7) rotate(-12deg);
+    will-change: transform, opacity;
+}
+
+.passport-section__seal--drop {
+    animation: sealDropBounce 1.2s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+@keyframes sealDropBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(-40%) scale(0.7) rotate(-12deg);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(8%) scale(1.05) rotate(2deg);
+    }
+    80% {
+        transform: translateY(-3%) scale(0.98) rotate(-3deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%) scale(1) rotate(0deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .passport-section {
+        max-width: 98vw;
+    }
+}
