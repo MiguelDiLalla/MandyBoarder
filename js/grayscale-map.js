@@ -9,15 +9,16 @@
     mapa.addEventListener('mouseleave', () => {
         document.body.classList.remove('grayscale-active');
     });
-    // Touch support: tap to toggle
-    let lastTouch = 0;
-    mapa.addEventListener('touchstart', () => {
-        const now = Date.now();
-        if (now - lastTouch < 800) {
+
+    // Touch support: tap to apply grayscale for 1 second
+    let touchTimeout;
+    mapa.addEventListener('touchstart', (e) => {
+        // Prevent default to avoid synthetic mouse events
+        e.preventDefault();
+        document.body.classList.add('grayscale-active');
+        if (touchTimeout) clearTimeout(touchTimeout);
+        touchTimeout = setTimeout(() => {
             document.body.classList.remove('grayscale-active');
-        } else {
-            document.body.classList.add('grayscale-active');
-        }
-        lastTouch = now;
+        }, 1000);
     });
 })();

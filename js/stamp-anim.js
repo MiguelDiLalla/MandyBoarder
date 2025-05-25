@@ -9,10 +9,18 @@
     function onEntry(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting && !animated) {
-                seal.classList.add('passport-section__seal--drop');
+                playDrop();
                 animated = true;
             }
         });
+    }
+
+    // Helper to replay the drop animation
+    function playDrop() {
+        seal.classList.remove('passport-section__seal--drop');
+        // force reflow to restart animation
+        void seal.offsetWidth;
+        seal.classList.add('passport-section__seal--drop');
     }
 
     // Use IntersectionObserver for viewport detection
@@ -20,4 +28,9 @@
         threshold: 0.4
     });
     observer.observe(section);
+
+    // Replay animation on click/tap
+    section.addEventListener('click', () => {
+        playDrop();
+    });
 })();

@@ -12,40 +12,50 @@ body {
 .hero-duo-container {
     display: flex;
     flex-direction: row-reverse; /* heropic-section will be on the left */
-    align-items: center;
-    justify-content: center;
-    gap: 1rem; /* reduced gap to prevent overflow */
-    width: 100%;
-    max-width: 100vw;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem; /* add padding instead of large gaps */
-    /* Let content determine height instead of fixed min-height */
+    align-items: flex-start; /* Align hero text section to top instead of center */
+    justify-content: flex-end; /* Push HeroPic to the left border (end of reverse direction) */
+    gap: 0; /* No gaps - images control spacing */
+    width: 100vw; /* Full viewport width on all screen sizes */
+    max-width: 100vw; /* Allow full viewport utilization */
+    margin: 0 auto; /* No bottom margin */
+    padding: 0; /* No padding */
     min-height: auto;
     box-sizing: border-box;
+    position: relative; /* Enable positioning context for overlay effect */
 }
 
 .hero-section {
-    flex: 1 1 auto; /* Take remaining space after heropic square */
-    min-width: 0;
-    max-width: none; /* Remove width constraints */
-    /* Override problematic width: 100vw */
-    width: auto !important;
-    /* Ensures images scale responsively and maintain aspect ratio */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* Override individual section margins for container alignment */
-    margin: 0 !important;
+    /* Responsive square dimensions that scale with viewport - increased size for prominence */
+    aspect-ratio: 1 / 1 !important;
+    width: 50vw !important; /* Use viewport units for precise control - half viewport */
+    max-width: none !important; /* Remove desktop width constraints for full viewport utilization */
+    min-width: 0 !important; /* Allow full shrinking on mobile */
+    
+    /* Overlay positioning for superposition effect */
+    position: absolute !important; /* Change from relative to absolute for overlay */
+    top: 0 !important; /* Position at top */
+    right: 0 !important; /* Right border touches viewport right border */
+    z-index: 10 !important; /* Ensure it's above HeroPic */
+      /* Transform for scaling only - no translation needed */
+    transform: scale(1.08) !important; /* Reduced to 90% of previous size (1.2 * 0.9 = 1.08) */
+    transform-origin: right center !important; /* Scale from right edge to maintain border alignment */
+    
+    /* Maintain centering within the section */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Ensure layers don't get trimmed and enable overlay */
+    overflow: visible;
 }
 
 .heropic-section {
-    /* Force perfect square dimensions, override slider.css */
+    /* Responsive square dimensions that scale with viewport - increased to 110% of previous size */
     aspect-ratio: 1 / 1 !important;
-    width: 600px !important; /* Fixed square size */
-    height: 600px !important; /* Fixed square size */
-    max-width: none !important; /* Override slider.css max-width */
-    flex: 0 0 auto !important; /* Don't allow flex to change dimensions */
+    width: 66% !important; /* Increased from 60% to 66% (60% * 1.1 = 66%) */
+    max-width: none !important; /* Remove desktop width constraints for full viewport utilization */
+    min-width: 0 !important; /* Allow full shrinking on mobile */
+    flex: 0 1 66% !important; /* 66% of container width for larger presence */
     
     /* Override slider.css positioning and margins */
     position: relative !important;
@@ -53,9 +63,9 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    
-    /* Ensure images don't get trimmed */
+      /* Ensure images don't get trimmed and position behind overlay */
     overflow: visible;
+    z-index: 1 !important; /* Behind the hero text overlay */
 }
 
 /* Override slider.css image styles to prevent trimming */
@@ -73,84 +83,65 @@ body {
     transition: filter 0.3s;
 }
 
-@media (max-width: 1200px) {
-    .hero-section {
-        flex-basis: 60%;
-    }
-    .heropic-section {
-        /* Maintain square aspect ratio at all breakpoints */
-        aspect-ratio: 1 / 1 !important;
-        height: 500px; /* Slightly smaller square for tablets */
-        width: auto;
-        flex: 0 0 auto !important;
-        max-width: none !important;
-    }
+/* Override hero.css layer styles to maintain proper display within square */
+.hero-section__layer {
+    position: absolute !important;
+    top: 0 !important; 
+    left: 0 !important; 
+    right: 0 !important; 
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    /* Ensure layers scale properly within the square container */
+    object-fit: contain !important;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* Mobile: maintain same side-by-side layout as desktop, just smaller */
-@media (max-width: 900px) {
-    .hero-duo-container {
-        /* Keep row-reverse layout */
-        flex-direction: row-reverse;
-        gap: 0.5rem;
-        padding: 0 0.25rem;
-        min-height: 300px; /* Reduce height for mobile */
-        margin: 0 auto 1rem auto; /* Reduce margin */
-    }
-    
-    /* Hero section adjusts to remaining space */
-    .hero-section {
-        flex: 1 1 auto; /* Take remaining space */
-        min-width: 0;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-    
-    .heropic-section {
-        /* Maintain perfect square on mobile */
-        aspect-ratio: 1 / 1 !important;
-        height: 300px; /* Smaller square for mobile */
-        width: auto;
-        flex: 0 0 auto !important;
-        max-width: none !important;
-        margin: 0 !important;
-    }
-}
 
-/* Layout for the herobio-passport-container: arranges herobio-section and passport-section side by side, with passport-section on the right */
+
+
+
+/* Layout for the herobio-passport-container: arranges herobio-section and passport-section with overlay effect, HeroBio overlaying Passport */
 .herobio-passport-container {
     display: flex;
     flex-direction: row;
-    align-items: center; /* Center children vertically in the flex row */
-    justify-content: center;
-    gap: 1rem; /* reduced gap to prevent overflow */
-    width: 100%;
+    align-items: center;
+    justify-content: flex-end; /* Align Passport to the right edge */
+    gap: 0; /* No gaps - images control spacing */
+    width: 100vw; /* Full viewport width for overlay layout */
     max-width: 100vw;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem; /* add padding instead of large gaps */
-    /* Ensure consistent height for alignment */
-    min-height: 600px;
+    margin: 0 auto; /* No bottom margin */
+    padding: 0; /* No padding */
+    min-height: auto; /* No fixed height */
     box-sizing: border-box;
+    position: relative; /* Enable positioning context for overlay effect */
 }
 
 .herobio-section {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 100%;
-    /* Override problematic width: 100vw */
-    width: 100% !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally in each section */
-    justify-content: center;
+    /* Overlay positioning for superposition effect - overlays Passport */
+    position: absolute !important; /* Change from flex to absolute for overlay */
+    left: -5% !important; /* Offset HeroBio by 5% of its width to the left, hiding that portion */
+    top: 50% !important; /* Center vertically */
+    transform: translate(0, -50%) scale(1.35) !important; /* Scale to 130% size (80% of previous 140%), left border aligned */
+    transform-origin: left center !important; /* Scale from left edge to maintain left border alignment */
+    z-index: 10 !important; /* Ensure it's above Passport */
+    
+    /* Responsive square dimensions */
+    aspect-ratio: 1 / 1 !important;
+    width: 50vw !important; /* Use viewport units for precise control */
+    max-width: none !important; /* Remove width constraints */
+    min-width: 0 !important; /* Allow full shrinking on mobile */
+    
     /* Override individual section margins for container alignment */
     margin: 0 !important;
 }
 
 .passport-section {
-    flex: 0 1 50%;
+    /* Backdrop for HeroBio overlay - aligned to right edge */
+    flex: 0 1 66%; /* Increase width to 66% to match HeroPic pattern */
     min-width: 0;
-    max-width: 50%;
+    max-width: 66%;
     /* Override problematic width: 100vw */
     width: 100% !important;
     display: flex;
@@ -159,119 +150,120 @@ body {
     justify-content: center;
     /* Override individual section margins for container alignment */
     margin: 0 !important;
+    z-index: 1 !important; /* Behind the HeroBio overlay */
 }
 
-@media (max-width: 900px) {
-    .herobio-passport-container {
-        /* Keep row layout like desktop */
-        flex-direction: row;
-        gap: 0.5rem;
-        padding: 0 0.25rem;
-        min-height: 300px; /* Reduce height for mobile */
-        margin: 0 auto 1rem auto; /* Reduce margin */
-    }
-    .herobio-section,
-    .passport-section {
-        /* Maintain proportional sizing but smaller */
-        margin: 0 !important;
-        width: 100% !important;
-    }
-    
-    .herobio-section {
-        flex: 1 1 0;
-        max-width: 100%;
-    }
-    
-    .passport-section {
-        flex: 0 1 50%; /* Keep same 50% proportion */
-        max-width: 50%;
-    }
-}
 
-/* Layout for the whyspanish-map-container: arranges mapa-section and whyspanish-section side by side, with mapa-section on the left */
+
+/* Layout for the whyspanish-map-container: arranges mapa-section and whyspanish-section with overlay effect, WhySpanish overlaying Map */
 .whyspanish-map-container {
     display: flex;
-    flex-direction: row; /* mapa-section will be on the left */
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 1rem; /* reduced gap to prevent overflow */
-    width: 100%;
+    justify-content: flex-start; /* Align Map to the left edge */
+    gap: 0; /* No gaps - images control spacing */
+    width: 100vw; /* Full viewport width for overlay layout */
     max-width: 100vw;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem; /* add padding instead of large gaps */
-    /* Ensure consistent height for alignment */
-    min-height: 600px;
+    margin: 0 auto; /* No bottom margin */
+    padding: 0; /* No padding */
+    min-height: auto; /* No fixed height */
     box-sizing: border-box;
-}
-
-.mapa-section {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 100%;
-    /* Override problematic width: 100vw */
-    width: 100% !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* Override individual section margins for container alignment */
-    margin: 0 !important;
+    position: relative; /* Enable positioning context for overlay effect */
 }
 
 .whyspanish-section {
-    flex: 0 1 50%;
-    min-width: 0;
-    max-width: 50%;
-    /* Override problematic width: 100vw */
-    width: 100% !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /* Overlay positioning for superposition effect - overlays Map */
+    position: absolute !important; /* Change from flex to absolute for overlay */
+    right: 0 !important; /* WhySpanish right border touches viewport right border */
+    top: 50% !important; /* Center vertically */
+    transform: translate(0, -50%) scale(1.2) !important; /* Scale to 120% size (80% of previous 150%), right border aligned */
+    transform-origin: right center !important; /* Scale from right edge to maintain right border alignment */
+    z-index: 10 !important; /* Ensure it's above Map */
+    
+    /* Responsive square dimensions */
+    aspect-ratio: 1 / 1 !important;
+    width: 50vw !important; /* Use viewport units for precise control */
+    max-width: none !important; /* Remove width constraints */
+    min-width: 0 !important; /* Allow full shrinking on mobile */
+    
     /* Override individual section margins for container alignment */
     margin: 0 !important;
 }
 
-@media (max-width: 900px) {
-    .whyspanish-map-container {
-        /* Keep row layout like desktop */
-        flex-direction: row;
-        gap: 0.5rem;
-        padding: 0 0.25rem;
-        min-height: 300px; /* Reduce height for mobile */
-        margin: 0 auto 1rem auto; /* Reduce margin */
-    }
-    .mapa-section,
-    .whyspanish-section {
-        /* Maintain proportional sizing but smaller */
-        margin: 0 !important;
-        width: 100% !important;
-    }
-    
-    .mapa-section {
-        flex: 1 1 0;
-        max-width: 100%;
-    }
-    
-    .whyspanish-section {
-        flex: 0 1 50%; /* Keep same 50% proportion */
-        max-width: 50%;
-    }
+.mapa-section {
+    /* Backdrop for WhySpanish overlay - aligned to left edge */
+    flex: 0 1 66%; /* Increase width to 66% to match HeroPic pattern */
+    min-width: 0;
+    max-width: 66%;
+    /* Override problematic width: 100vw */
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally in each section */
+    justify-content: center;
+    /* Override individual section margins for container alignment */
+    margin: 0 !important;
+    z-index: 1 !important; /* Behind the WhySpanish overlay */
+      /* Responsive square dimensions that scale with viewport - increased to 135% */
+    aspect-ratio: 1 / 1 !important;
+    transform: scale(1.35) !important; /* Scale to 135% size (90% of previous 150%) */
+    transform-origin: left center !important; /* Scale from left edge */
 }
 
-/* Force sections within flex containers to use proper alignment (except heropic which maintains square) */
-.hero-duo-container > .hero-section,
+
+
+/* Force sections within flex containers to use proper alignment */
 .herobio-passport-container > .herobio-section,
 .herobio-passport-container > .passport-section,
 .whyspanish-map-container > .mapa-section,
 .whyspanish-map-container > .whyspanish-section {
     height: 100%;
-    min-height: 600px;
+    min-height: auto; /* No fixed minimum height */
 }
 
-/* heropic-section maintains its own square dimensions */
+/* Both hero sections maintain their own square dimensions */
+.hero-duo-container > .hero-section,
 .hero-duo-container > .heropic-section {
     height: auto; /* Let aspect-ratio control the height */
+}
+
+/* Responsive behavior for hero duo sections - maintain side-by-side layout with no gaps */
+@media (max-width: 768px) {
+    .hero-duo-container {
+        gap: 0; /* No gaps on any screen size */
+        padding: 0; /* No padding on any screen size */
+        width: 100vw; /* Full viewport width */
+        max-width: 100vw;
+    }      .hero-section {
+        /* Use same overlapping and size parameters as desktop */
+        transform: scale(1.08) !important; /* Same scaling as desktop */
+        transform-origin: right center !important; /* Maintain right border alignment */
+        width: 50vw !important; /* Same width as desktop */
+    }      .heropic-section {
+        /* Use same size parameters as desktop */
+        width: 66% !important; /* Same width as desktop */
+        max-width: none !important;
+        min-width: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-duo-container {
+        gap: 0; /* No gaps on any screen size */
+        padding: 0; /* No padding on any screen size */
+        width: 100vw; /* Full viewport width */
+        max-width: 100vw;
+    }      .hero-section {
+        /* Use same overlapping and size parameters as desktop */
+        transform: scale(1.08) !important; /* Same scaling as desktop */
+        transform-origin: right center !important; /* Maintain right border alignment */
+        width: 50vw !important; /* Same width as desktop */
+    }      .heropic-section {
+        /* Use same size parameters as desktop */
+        width: 66% !important; /* Same width as desktop */
+        max-width: none !important;
+        min-width: 0 !important;
+    }
 }
 
 /* Override width: 100vw for standalone sections to prevent horizontal overflow */
@@ -279,8 +271,8 @@ body {
 .final-section {
     width: 100% !important;
     max-width: 100vw !important;
-    margin: 2rem auto !important;
-    padding: 0 1rem;
+    margin: 0 auto !important; /* No margins - images control spacing */
+    padding: 0; /* No padding */
     box-sizing: border-box;
 }
 
@@ -291,22 +283,199 @@ body {
     box-sizing: border-box;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 900px) {
-    /* Update container heights for mobile */
-    .hero-duo-container > .hero-section,
-    .hero-duo-container > .heropic-section,
-    .herobio-passport-container > .herobio-section,
-    .herobio-passport-container > .passport-section,
-    .whyspanish-map-container > .mapa-section,
-    .whyspanish-map-container > .whyspanish-section {
-        height: auto;
-        min-height: 300px; /* Reduced mobile height */
+/* Override ALL individual section margins and padding - images control spacing */
+.hero-section,
+.heropic-section,
+.herobio-section,
+.passport-section,
+.mapa-section,
+.whyspanish-section,
+.tiers-section,
+.final-section {
+    margin: 0 !important; /* Force no margins */
+    padding: 0 !important; /* Force no padding */
+}
+
+/* Additional mobile gap elimination */
+@media (max-width: 768px) {
+    /* Force zero spacing on all containers and ensure full viewport width */
+    .hero-duo-container,
+    .herobio-passport-container,
+    .whyspanish-map-container {
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        width: 100vw !important; /* Full viewport width */
+        max-width: 100vw !important;
+    }    /* Force zero spacing and proper mobile widths on all sections */
+    .hero-section {
+        margin: 0 !important;
+        padding: 0 !important;
+        /* Width and overlay handled by specific hero mobile rules above: overlay positioning with scaling */
+    }
+    
+    .heropic-section {
+        margin: 0 !important;
+        padding: 0 !important;
+        /* Width handled by specific hero mobile rules above: full viewport as backdrop for overlay */
+    }
+      /* Apply same overlapping logic for HeroBio-Passport as desktop */    .herobio-section {
+        /* Use same overlapping and size parameters as desktop with mobile adjustments */
+        position: absolute !important;
+        left: -7% !important; /* Reduced offset - less hidden on the left margin */
+        top: 50% !important;
+        transform: translate(0, -50%) scale(1.727) !important; /* 110% of current size (1.57 × 1.10 = 1.727) */
+        transform-origin: left center !important; /* Scale from left edge to maintain left border alignment */
+        z-index: 10 !important;
+        width: 50vw !important; /* Same width as desktop */
+        margin: 0 !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+    }
+      .passport-section {
+        /* Use same size parameters as desktop but with mobile adjustments */
+        flex: 0 1 60% !important; /* Same width as desktop */
+        max-width: 60% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 1 !important; /* Behind overlay */
+        /* Mobile adjustments: 10% right offset and 85% scaling */
+        position: relative !important;
+        right: -10% !important; /* Move 10% to the right */
+        transform: scale(0.85) !important; /* Scale to 85% of current size */
+        transform-origin: right center !important; /* Scale from right edge */
+    }
+    .mapa-section,
+    .whyspanish-section {
+        /* Use same overlapping logic as desktop */
+        margin: 0 !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+    }
+      .whyspanish-section {
+        /* Use same overlapping and size parameters as desktop */
+        position: absolute !important;
+        right: 0 !important; /* WhySpanish right border touches page right border - same as desktop */
+        top: 50% !important;
+        transform: translate(0, -50%) scale(1.2) !important; /* Same 120% scaling as desktop (80% of original) */
+        transform-origin: right center !important; /* Scale from right edge to maintain right border alignment */
+        z-index: 10 !important;
+        width: 50vw !important; /* Same width as desktop */
+        margin: 0 !important;
+        padding: 0 !important;
+        min-width: 0 !important;
+    }
+    
+    .mapa-section {
+        /* Use same size parameters as desktop */
+        flex: 0 1 66% !important; /* Same width as desktop */
+        max-width: 66% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 1 !important; /* Behind overlay */
+        transform: scale(1.35) !important; /* Same 135% scaling as desktop (90% of original) */
+        transform-origin: left center !important;
     }
     
     .tiers-section,
     .final-section {
-        padding: 0 0.25rem; /* Consistent mobile padding */
-        margin: 1rem auto !important; /* Reduced mobile margin */
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important; /* Full viewport width */
+        max-width: 100vw !important;
+        min-width: 0 !important; /* Allow full shrinking */
     }
 }
+
+/* Even more aggressive mobile constraints for smallest screens */
+@media (max-width: 480px) {
+    /* Ensure absolutely no overflow on smallest screens */
+    .hero-duo-container,
+    .herobio-passport-container,
+    .whyspanish-map-container,
+    .tiers-section,
+    .final-section {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+      /* All sections must fit within viewport */
+    .hero-section,
+    .heropic-section,
+    .herobio-section,
+    .passport-section,
+    .mapa-section,
+    .whyspanish-section,
+    .tiers-section,
+    .final-section {
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Apply same overlapping logic for WhySpanish-Map as desktop */
+    .whyspanish-section {
+        /* Use same overlapping and size parameters as desktop */
+        position: absolute !important;
+        right: 0 !important; /* WhySpanish right border touches page right border */
+        top: 50% !important;
+        transform: translate(0, -50%) scale(1.2) !important; /* Same 120% scaling as desktop (80% of original) */
+        transform-origin: right center !important; /* Scale from right edge to maintain right border alignment */
+        z-index: 10 !important;
+        width: 50vw !important; /* Same width as desktop */
+    }
+      .mapa-section {
+        /* Use same size parameters as desktop */
+        flex: 0 1 66% !important; /* Same width as desktop */
+        max-width: 66% !important;
+        min-width: 0 !important;
+        z-index: 1 !important; /* Behind overlay */
+        transform: scale(1.35) !important; /* Same 135% scaling as desktop (90% of original) */
+        transform-origin: left center !important;
+    }
+    
+    /* Apply same overlapping logic for HeroBio-Passport as desktop */    .herobio-section {
+        /* Use same overlapping and size parameters as desktop with mobile adjustments */
+        position: absolute !important;
+        left: -7% !important; /* Reduced offset - less hidden on the left margin */
+        top: 50% !important;
+        transform: translate(0, -50%) scale(1.628) !important; /* 110% of current size (1.48 × 1.10 = 1.628) */
+        transform-origin: left center !important; /* Scale from left edge to maintain left border alignment */
+        z-index: 10 !important;
+        width: 50vw !important; /* Same width as desktop */
+    }
+      .passport-section {
+        /* Use same size parameters as desktop but with mobile adjustments */
+        flex: 0 1 66% !important; /* Same width as desktop */
+        max-width: 66% !important;
+        min-width: 0 !important;
+        z-index: 1 !important; /* Behind overlay */
+        /* Mobile adjustments: 10% right offset and 85% of current scaling */
+        position: relative !important;
+        right: -10% !important; /* Move 10% to the right */
+        transform: scale(1.15) !important; /* 85% of previous 1.35 scaling (1.35 × 0.85 ≈ 1.15) */
+        transform-origin: right center !important; /* Scale from right edge */
+    }
+    
+    /* Images must not exceed their container */
+    .hero-section__layer,
+    .heropic-section__img,
+    .herobio-section img,
+    .passport-section img,
+    .mapa-section img,
+    .whyspanish-section img,
+    .tiers-section img,
+    .final-section img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+}
+
+

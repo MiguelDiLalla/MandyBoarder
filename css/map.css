@@ -2,15 +2,12 @@
    BEM-like, responsive, grayscale effect on page except map */
 
 .mapa-section {
+    /* Basic container styles - positioning and sizing controlled by arangue.css for overlapping layout */
     position: relative;
-    width: 100vw;
-    max-width: 600px;
-    aspect-ratio: 1 / 1;
-    margin: 2rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    /* Remove conflicting width, margin, and sizing - controlled by arangue.css */
 }
 
 .mapa-section__img {
@@ -21,13 +18,52 @@
     pointer-events: auto;
 }
 
-body.grayscale-active main > *:not(.mapa-section) {
+/* Commented out old broad rule */
+/* body.grayscale-active main > *:not(.mapa-section) {
     filter: grayscale(1) brightness(0.85);
     transition: filter 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 
 body.grayscale-active .mapa-section {
     z-index: 2;
+} */
+
+/* Apply grayscale only to specified sibling containers */
+body.grayscale-active .hero-duo-container,
+body.grayscale-active .herobio-passport-container,
+body.grayscale-active .whyspanish-map-container > .whyspanish-section,
+body.grayscale-active .tiers-section,
+body.grayscale-active .final-section {
+    filter: grayscale(1) brightness(0.85);
+    transition: filter 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Keep map section and its children in full color */
+body.grayscale-active .mapa-section,
+body.grayscale-active .mapa-section * {
+    filter: none !important;
+    z-index: 2;
+}
+
+/* Move page background into a ::before pseudo-element for filtering */
+body {
+    position: relative;
+    background: none !important;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("../WEB_ELEMENTS/beautiful-sky-with-clouds.jpg") center/cover no-repeat fixed;
+    z-index: -1;
+    transition: filter 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Apply grayscale to background when active */
+body.grayscale-active::before {
+    filter: grayscale(1) brightness(0.85);
 }
 
 @media (max-width: 600px) {
