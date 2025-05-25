@@ -23,4 +23,9 @@
     section.setAttribute('role', 'button');
     section.setAttribute('tabindex', '0');
     section.setAttribute('aria-pressed', 'false');
+
+    // Auto-flip HeroBio flipcard after 15s, then flip back after 17s
+    setTimeout(toggleFlip, 15000);
+    setTimeout(toggleFlip, 17000);
+
 })();

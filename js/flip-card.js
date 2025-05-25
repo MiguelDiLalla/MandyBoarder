@@ -23,4 +23,9 @@
     section.setAttribute('role', 'button');
     section.setAttribute('tabindex', '0');
     section.setAttribute('aria-pressed', 'false');
+
+    // Auto-flip WhySpanish flipcard after 25s, then flip back after 27s
+    setTimeout(toggleFlip, 25000);
+    setTimeout(toggleFlip, 27000);
+
 })();

@@ -36,4 +36,10 @@
     section.setAttribute('role', 'button');
     section.setAttribute('tabindex', '0');
     updateFlip();
+
+    // Auto-flip Final flipcard at 40s, 43s, and 46s after page load
+    setTimeout(nextFlip, 40000); // to face 1
+    setTimeout(nextFlip, 43000); // to face 2
+    setTimeout(nextFlip, 46000); // back to face 0
+
 })();

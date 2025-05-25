@@ -247,6 +247,16 @@ body {
     }
 }
 
+/* Mobile: ensure all sections fit full viewport width */
+@media (max-width: 768px) {
+    .section-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+}
+
 @media (max-width: 480px) {
     .hero-duo-container {
         gap: 0; /* No gaps on any screen size */
