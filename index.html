@@ -9,19 +9,33 @@
     <link rel="stylesheet" href="css/flipcard.css">
     <link rel="stylesheet" href="css/passport.css">
     <link rel="stylesheet" href="css/map.css">
-    <link rel="stylesheet" href="css/tiers.css">
-    <link rel="stylesheet" href="css/final.css">
+    <link rel="stylesheet" href="css/tiers.css">    <link rel="stylesheet" href="css/final.css">
+    <link rel="stylesheet" href="css/floating-button.css">
     <link rel="stylesheet" href="css/arangue.css">
     <script src="js/hero-fadein.js" defer></script>
     <script src="js/slider-mask.js" defer></script>
     <script src="js/bio-flipcard.js" defer></script>
     <script src="js/stamp-anim.js" defer></script>
     <script src="js/flip-card.js" defer></script>
-    <script src="js/grayscale-map.js" defer></script>
-    <script src="js/tiers-carousel.js" defer></script>
+    <script src="js/grayscale-map.js" defer></script>    <script src="js/tiers-carousel.js" defer></script>
     <script src="js/final-flipcard.js" defer></script>
+    <script src="js/floating-button.js" defer></script>
 </head>
-<body style="background: url('WEB_ELEMENTS/beautiful-sky-with-clouds.jpg') center/cover no-repeat fixed; min-height: 100vh;">
+<body style="background: url('WEB_ELEMENTS/beautiful-sky-with-clouds.webp') center/cover no-repeat fixed; min-height: 100vh;">
+    <!-- Mobile Navigation Bar (only visible on mobile) -->
+    <div class="mobile-nav-bar">
+        <div class="floating-button" role="button" tabindex="0" aria-label="Book your first free lesson now">
+            <img src="WEB_ELEMENTS/FloatingMedia/ICON-ROUND.webp" alt="Book Now Icon" class="floating-button__icon" loading="lazy" />
+            <span class="floating-button__text">Book First FREE Lesson NOW!</span>
+        </div>
+    </div>
+    
+    <!-- Desktop Floating Action Button (only visible on desktop) -->
+    <div class="floating-button floating-button--desktop" role="button" tabindex="0" aria-label="Book your first free lesson now">
+        <img src="WEB_ELEMENTS/FloatingMedia/ICON-ROUND.webp" alt="Book Now Icon" class="floating-button__icon" loading="lazy" />
+        <span class="floating-button__text">Book First FREE Lesson NOW!</span>
+    </div>
+    
     <main>
         <!-- Hero Section (Section 1) and HeroPic Section (Section 2) side by side -->
         <div class="hero-duo-container">
@@ -94,9 +108,15 @@
                 </div>
                 <div class="final-flipcard__face final-flipcard__face--third">
                     <img src="WEB_ELEMENTS/SECTIONS/FINAL/PoliticaPrivacidad.webp" alt="Política de Privacidad (Español)" class="final-flipcard__img" loading="lazy" data-aspect-ratio="4/3" />
-                </div>
-            </div>
-        </section>
+                </div>        </section>
     </main>
+
+    <!-- Booking Overlay Modal -->
+    <div class="booking-overlay" id="bookingOverlay" role="dialog" aria-modal="true" aria-labelledby="bookingModalLabel">
+        <div class="booking-overlay__content">
+            <img src="" alt="Booking promotion" class="booking-overlay__image" id="bookingImage" loading="lazy" />
+        </div>
+        <div class="booking-overlay__close-hint">Click outside to close</div>
+    </div>
 </body>
 </html>

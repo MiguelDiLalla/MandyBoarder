@@ -1,0 +1,424 @@
+/* Floating Button - Bottom Left Corner */
+.floating-button {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    z-index: 1000;
+      /* Initial circular state */
+    width: 80px;
+    height: 80px;
+    background-color: #fdeedd;
+    border-radius: 50%;
+    
+    /* Center the icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Smooth transitions */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    /* Shadow for depth */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    /* Cursor */
+    cursor: pointer;
+    
+    /* Prevent text selection */
+    user-select: none;
+    
+    /* Hardware acceleration */
+    will-change: transform, border-radius, width;
+}
+
+.floating-button:hover,
+.floating-button.auto-expanded {
+    /* Expand to rounded rectangle - made wider for text padding */
+    width: 360px;
+    border-radius: 40px;
+    
+    /* Slightly larger shadow on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    
+    /* Slight scale for visual feedback */
+    transform: scale(1.02);
+}
+
+.floating-button:hover .floating-button__icon,
+.floating-button.auto-expanded .floating-button__icon {
+    /* Move icon to the left when expanded - keep it inside button bounds */
+    margin-right: 20px;
+    margin-left: 20px;
+    
+    /* Ensure flexbox doesn't override our positioning */
+    flex-shrink: 0;
+}
+
+.floating-button:hover .floating-button__text,
+.floating-button.auto-expanded .floating-button__text {
+    /* Show text when expanded */
+    opacity: 1;
+    width: auto;
+}
+
+.floating-button__icon {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    
+    /* Smooth transition for icon */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    /* Initially centered with no margins */
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* Ensure icon is perfectly centered in circular state */
+.floating-button:not(:hover):not(.auto-expanded) .floating-button__icon {
+    margin: 0 !important;
+}
+
+.floating-button__text {
+    /* Initially hidden */
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+      /* Typography */
+    font-family: 'Rokkitt', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #e3000b; /* Starting color - red */
+    
+    /* Smooth transition */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    /* Add padding for better spacing */
+    padding-right: 16px;
+}
+
+.floating-button:hover .floating-button__text,
+.floating-button.auto-expanded .floating-button__text {
+    /* Show text when expanded and start color animation */
+    opacity: 1;
+    width: auto;
+    animation: colorCycle 2s ease-in-out infinite;
+}
+
+/* Color cycling animation */
+@keyframes colorCycle {
+    0% {
+        color: #e3000b; /* Red */
+    }
+    50% {
+        color: #1e68ff; /* Blue */
+    }
+    100% {
+        color: #e3000b; /* Back to Red */
+    }
+}
+
+/* Active state for click feedback */
+.floating-button:active {
+    transform: scale(0.98);
+}
+
+/* Mobile Navigation Bar Container */
+.mobile-nav-bar {
+    display: none; /* Hidden on desktop */
+}
+
+/* Desktop floating button - shown by default */
+.floating-button--desktop {
+    display: flex; /* Shown on desktop */
+}
+
+/* Ensure proper mobile viewport behavior */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        position: relative; /* Ensure proper stacking context */
+    }
+    
+    /* Ensure body background doesn't interfere with fixed nav */
+    body {
+        background-attachment: fixed !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Hide desktop floating button on mobile */
+    .floating-button--desktop {
+        display: none !important;
+    }    /* Show mobile navigation bar */
+    .mobile-nav-bar {
+        display: flex !important; /* Use flexbox for proper centering */
+        position: fixed !important; /* Ensure it stays fixed */
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 999 !important; /* High z-index to stay on top */
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        
+        /* Additional styling for better mobile nav experience */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        
+        /* Prevent any scrolling issues */
+        transform: translateZ(0); /* Force hardware acceleration */
+        will-change: transform;
+    }    /* Mobile button positioning - centered in nav bar */
+    .floating-button {
+        position: static !important; /* Let flexbox handle positioning */
+        bottom: auto !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        width: 65px;
+        height: 65px;
+        margin: 0 !important; /* Remove all margins - let flexbox center */
+        z-index: inherit; /* Use parent nav bar z-index */
+        
+        /* Ensure button doesn't overflow on mobile */
+        max-width: calc(100vw - 20px);
+        box-sizing: border-box;
+        
+        /* Ensure flexbox properties work properly */
+        flex-shrink: 0;
+        align-self: center;
+    }
+    
+    .floating-button:hover,
+    .floating-button.auto-expanded {
+        width: 280px; /* Adjusted for mobile nav bar */
+        max-width: calc(100vw - 20px); /* Ensure it doesn't overflow viewport */
+        border-radius: 32px;
+    }
+    
+    .floating-button__icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .floating-button__text {
+        font-size: 15px;
+    }    .floating-button:hover .floating-button__icon,
+    .floating-button.auto-expanded .floating-button__icon {
+        /* Adjust margins for mobile nav layout - keep icon inside button */
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+      /* Add top padding to main content to account for fixed nav bar */
+    main {
+        padding-top: 80px !important;
+        position: relative;
+        z-index: 1; /* Ensure main content is below nav bar */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Mobile nav bar adjustments for smaller screens */
+    .mobile-nav-bar {
+        height: 75px;
+    }
+      .floating-button {
+        width: 55px;
+        height: 55px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .floating-button:hover,
+    .floating-button.auto-expanded {
+        width: 240px; /* Reduced for smaller screens */
+        max-width: calc(100vw - 20px);
+        border-radius: 28px;
+    }
+    
+    .floating-button__icon {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .floating-button__text {
+        font-size: 14px;
+        padding-right: 12px; /* Reduced padding */
+    }    .floating-button:hover .floating-button__icon,
+    .floating-button.auto-expanded .floating-button__icon {
+        /* Adjust margins for smaller screens - keep icon inside button */
+        margin-right: 12px;
+        margin-left: 12px;
+    }
+      /* Adjust main content padding */
+    main {
+        padding-top: 75px !important;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* Extra small screens (very narrow phones) */
+@media (max-width: 360px) {
+    /* Mobile nav bar adjustments for extra small screens */
+    .mobile-nav-bar {
+        height: 70px;
+    }
+      .floating-button {
+        width: 50px;
+        height: 50px;
+        max-width: calc(100vw - 15px);
+    }
+    
+    .floating-button:hover,
+    .floating-button.auto-expanded {
+        width: 200px; /* Further reduced for very small screens */
+        max-width: calc(100vw - 15px);
+        border-radius: 25px;
+    }
+    
+    .floating-button__icon {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .floating-button__text {
+        font-size: 13px;
+        padding-right: 10px;
+    }    .floating-button:hover .floating-button__icon,
+    .floating-button.auto-expanded .floating-button__icon {
+        /* Adjust margins for extra small screens - keep icon inside button */
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+      /* Adjust main content padding */
+    main {
+        padding-top: 70px !important;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* Booking Overlay Modal */
+.booking-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    
+    /* Center the content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Initially hidden */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Smooth transitions */
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    /* Hardware acceleration */
+    will-change: opacity, visibility;
+}
+
+.booking-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.booking-overlay__content {
+    /* Center the image both horizontally and vertically */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: pointer;
+    
+    /* Scale animation */
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    /* Shadow for depth */
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.booking-overlay.active .booking-overlay__content {
+    transform: scale(1);
+}
+
+.booking-overlay__image {
+    width: auto;
+    height: auto;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 12px;
+    
+    /* Ensure proper centering */
+    display: block;
+    margin: 0 auto;
+    
+    /* Smooth loading */
+    transition: opacity 0.2s ease-in-out;
+    
+    /* Maintain aspect ratio */
+    object-fit: contain;
+}
+
+/* Close hint (optional visual cue) */
+.booking-overlay__close-hint {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Rokkitt', serif;
+    font-size: 14px;
+    pointer-events: none;
+    
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.booking-overlay.active .booking-overlay__close-hint {
+    opacity: 1;
+    animation: fadeInDelay 0.5s ease-in-out 1s both;
+}
+
+@keyframes fadeInDelay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive overlay adjustments */
+@media (max-width: 768px) {
+    .booking-overlay__content {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+    
+    .booking-overlay__image {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+    
+    .booking-overlay__close-hint {
+        font-size: 12px;
+        top: 15px;
+        right: 15px;
+    }
+}
