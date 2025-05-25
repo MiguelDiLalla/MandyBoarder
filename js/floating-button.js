@@ -45,24 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
      * Only applies to desktop version
      */
     function autoExpandButton() {
-        if (isUserInteracting || !desktopFloatingButton) return; // Don't auto-expand if user is interacting or no desktop button
+        if (isUserInteracting) return; // Don't auto-expand during user interaction
+        // Auto-expand on both desktop and mobile buttons
+        allFloatingButtons.forEach(btn => btn.classList.add('auto-expanded'));
         
-        // Only auto-expand on desktop (when mobile nav bar is hidden)
-        const mobileNavBar = document.querySelector('.mobile-nav-bar');
-        if (mobileNavBar && window.getComputedStyle(mobileNavBar).display !== 'none') {
-            return; // Don't auto-expand on mobile
-        }
-        
-        desktopFloatingButton.classList.add('auto-expanded');
-        
-        // Contract after 1.5 seconds
+        // Contract after 1.5 seconds on all buttons
         setTimeout(() => {
-            if (!isUserInteracting && desktopFloatingButton) {
-                desktopFloatingButton.classList.remove('auto-expanded');
+            if (!isUserInteracting) {
+                allFloatingButtons.forEach(btn => btn.classList.remove('auto-expanded'));
             }
         }, 1500);
         
-        console.log('Auto-expanded desktop button, count:', autoExpansionCount + 1);
+        console.log('Auto-expanded buttons, count:', autoExpansionCount + 1);
     }
     
     /**
@@ -103,14 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function pauseAutoExpansion() {
         isUserInteracting = true;
-        if (desktopFloatingButton) {
-            desktopFloatingButton.classList.remove('auto-expanded');
-        }
+        // Remove expansion on all buttons
+        allFloatingButtons.forEach(btn => btn.classList.remove('auto-expanded'));
         
         // Resume auto-expansion after 30 seconds of no interaction
-        setTimeout(() => {
-            isUserInteracting = false;
-        }, 30000);
+        setTimeout(() => isUserInteracting = false, 30000);
         
         console.log('Auto-expansion paused due to user interaction');
     }

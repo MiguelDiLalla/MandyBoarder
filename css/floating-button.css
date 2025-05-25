@@ -31,6 +31,12 @@
     will-change: transform, border-radius, width;
 }
 
+/* CLOSED STATE: icon centered via flex */
+.floating-button:not(:hover):not(.auto-expanded) {
+    justify-content: center;
+    padding: 0;
+}
+
 .floating-button:hover,
 .floating-button.auto-expanded {
     /* Expand to rounded rectangle - made wider for text padding */
@@ -42,28 +48,15 @@
     
     /* Slight scale for visual feedback */
     transform: scale(1.02);
-}
-
-.floating-button:hover .floating-button__icon,
-.floating-button.auto-expanded .floating-button__icon {
-    /* Move icon to the left when expanded - keep it inside button bounds */
-    margin-right: 20px;
-    margin-left: 20px;
     
-    /* Ensure flexbox doesn't override our positioning */
-    flex-shrink: 0;
-}
-
-.floating-button:hover .floating-button__text,
-.floating-button.auto-expanded .floating-button__text {
-    /* Show text when expanded */
-    opacity: 1;
-    width: auto;
+    justify-content: flex-start;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .floating-button__icon {
-    width: 65px;
-    height: 65px;
+    height: 100%;
+    width: auto;
     object-fit: contain;
     
     /* Smooth transition for icon */
@@ -72,15 +65,22 @@
     /* Initially centered with no margins */
     margin: 0;
     flex-shrink: 0;
+    position: static !important;
+    transform: none !important;
+    
+    /* Icon is decorative, not interactive */
+    pointer-events: none;
 }
 
-/* Ensure icon is perfectly centered in circular state */
-.floating-button:not(:hover):not(.auto-expanded) .floating-button__icon {
-    margin: 0 !important;
+/* EXPANDED ICON: add right margin for text spacing */
+.floating-button:hover .floating-button__icon,
+.floating-button.auto-expanded .floating-button__icon {
+    margin-right: 16px;
 }
 
 .floating-button__text {
     /* Initially hidden */
+    display: none;
     opacity: 0;
     width: 0;
     overflow: hidden;
@@ -92,17 +92,16 @@
     color: #e3000b; /* Starting color - red */
     
     /* Smooth transition */
-    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    
-    /* Add padding for better spacing */
-    padding-right: 16px;
+    transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    padding-right: 0;
 }
 
 .floating-button:hover .floating-button__text,
 .floating-button.auto-expanded .floating-button__text {
-    /* Show text when expanded and start color animation */
+    display: inline;
     opacity: 1;
     width: auto;
+    padding-right: 16px;
     animation: colorCycle 2s ease-in-out infinite;
 }
 
@@ -202,9 +201,11 @@
     
     .floating-button:hover,
     .floating-button.auto-expanded {
-        width: 280px; /* Adjusted for mobile nav bar */
+        width: auto !important; /* Adapt to text width */
         max-width: calc(100vw - 20px); /* Ensure it doesn't overflow viewport */
         border-radius: 32px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
     }
     
     .floating-button__icon {
@@ -241,9 +242,11 @@
     
     .floating-button:hover,
     .floating-button.auto-expanded {
-        width: 240px; /* Reduced for smaller screens */
+        width: auto !important; /* Adapt to text width */
         max-width: calc(100vw - 20px);
         border-radius: 28px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
     }
     
     .floating-button__icon {
@@ -282,9 +285,11 @@
     
     .floating-button:hover,
     .floating-button.auto-expanded {
-        width: 200px; /* Further reduced for very small screens */
+        width: auto !important; /* Adapt to text width */
         max-width: calc(100vw - 15px);
         border-radius: 25px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
     }
     
     .floating-button__icon {
