@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function getBookingUrl(imagePath) {
         const imageName = imagePath.split('/').pop();
-        return bookingUrls[imageName] || 'https://calendly.com/default-booking'; // Fallback URL
+        return bookingUrls[imageName] || 'https://calendly.com/mandyborder3003/free-spanish-class'; // Fallback URL
     }
     
     /**
