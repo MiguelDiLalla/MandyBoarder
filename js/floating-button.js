@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Booking URLs - replace with actual booking links
     const bookingUrls = {
-        'BookNow.webp': 'https://calendly.com/your-booking-link', // Replace with actual URL
-        'FirstFree.webp': 'https://calendly.com/your-free-lesson-link' // Replace with actual URL
+        'BookNow.webp': 'https://calendly.com/mandyborder3003/free-spanish-class', // Replace with actual URL
+        'FirstFree.webp': 'https://calendly.com/mandyborder3003/free-spanish-class' // Replace with actual URL
     };
     
     // Auto-expansion configuration
